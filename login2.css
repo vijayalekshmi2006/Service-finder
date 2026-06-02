@@ -1,0 +1,66 @@
+body{
+    margin:0;
+    font-family:Arial;
+
+    background:
+    linear-gradient(rgba(0,119,204,0.8),rgba(0,198,255,0.7)),
+    url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070');
+
+    background-size:cover;
+    background-position:center;
+
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Login Box */
+
+.login-box{
+    width:400px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+
+.login-title{
+    text-align:center;
+    margin-bottom:25px;
+    color:#0077cc;
+    font-weight:bold;
+}
+
+.form-control,
+.form-select{
+    height:50px;
+    border-radius:10px;
+}
+
+/* Button */
+
+.login-btn{
+    width:100%;
+    height:50px;
+    border:none;
+    border-radius:10px;
+    background:#0077cc;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.login-btn:hover{
+    background:#005fa3;
+}
+
+/* Register Link */
+
+.register-link{
+    text-align:center;
+    margin-top:20px;
+}
+
