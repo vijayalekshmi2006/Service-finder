@@ -98,7 +98,12 @@ body{
 .category-card:hover{
     transform:translateY(-5px);
 }
-
+.small-btn{
+    width:220px;
+    height:50px;
+    border-radius:10px;
+    font-weight:bold;
+}
 .bg1{
     background:linear-gradient(135deg,#ff9800,#ff5722);
 }
@@ -205,83 +210,88 @@ Electrician | Plumber | AC Repair | Painter
 
 <!-- Search Section -->
 
+<!-- Search Section -->
+
 <div class="container">
 
-<div class="search-box">
+    <div class="search-box">
 
-<div class="row g-3">
+        <!-- First Row -->
 
-<!-- Service -->
+        <div class="row g-3">
 
-<div class="col-md-4">
+            <!-- District -->
 
-<select class="form-select"
-id="service">
+            <div class="col-md-4">
 
-<option value="">
-Select Service
-</option>
+                <select class="form-select" id="district">
 
-<option>
-Electrician
-</option>
+                    <option value="">Select District</option>
 
-<option>
-Plumber
-</option>
+                    <option>Kanyakumari</option>
+                    <option>Chennai</option>
+                    <option>Madurai</option>
+                    <option>Coimbatore</option>
+                    <option>Salem</option>
 
-<option>
-AC Repair
-</option>
+                </select>
 
-<option>
-Painter
-</option>
+            </div>
 
-</select>
+            <!-- Area -->
+
+            <div class="col-md-4">
+
+                <select class="form-select" id="area">
+
+                    <option value="">Select Area</option>
+
+                </select>
+
+            </div>
+
+            <!-- Service -->
+
+            <div class="col-md-4">
+
+                <select class="form-select" id="service">
+
+                    <option value="">Select Service</option>
+
+                    <option>Electrician</option>
+                    <option>Plumber</option>
+                    <option>AC Repair</option>
+                    <option>Painter</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- Second Row -->
+
+        <div class="d-flex justify-content-center gap-3 mt-3">
+
+        <button class="search-btn small-btn"
+                onclick="searchWorkers()">
+
+            <i class="bi bi-search"></i>
+            Search Workers
+
+         </button>
+
+    <button class="btn btn-success small-btn"
+    onclick="getLocation()">
+
+        <i class="bi bi-geo-alt-fill"></i>
+        Find Nearby Workers
+
+    </button>
 
 </div>
 
-<!-- District -->
-
-<div class="col-md-4">
-
-<input type="text"
-id="location"
-class="form-control"
-placeholder="Enter District or Area">
-
-</div>
-
-<!-- Search -->
-
-<div class="col-md-4">
-
-<button class="search-btn"
-onclick="searchWorkers()">
-
-<i class="bi bi-search"></i>
-
-Search Workers
-
-</button>
-
-</div>
-
-</div>
-
-<br>
-
-<button class="btn btn-success"
-onclick="getLocation()">
-
-<i class="bi bi-geo-alt-fill"></i>
-
-Use My Current Location
-
-</button>
-
-</div>
+    </div>
 
 </div>
 
@@ -409,60 +419,137 @@ Contact Us
 
 /* Search Validation */
 
+const areas = {
+
+    "Kanyakumari":[
+        "Nagercoil",
+        "Marthandam",
+        "Colachel"
+    ],
+
+    "Chennai":[
+        "Tambaram",
+        "Velachery",
+        "T Nagar"
+    ],
+
+    "Madurai":[
+        "Anna Nagar",
+        "KK Nagar",
+        "Melur"
+    ],
+
+    "Coimbatore":[
+        "Gandhipuram",
+        "Peelamedu",
+        "Saravanampatti"
+    ],
+
+    "Salem":[
+        "Attur",
+        "Omalur",
+        "Mettur"
+    ]
+};
+
+/* Load areas based on district */
+
+document.getElementById("district")
+.addEventListener("change", function(){
+
+    let district = this.value;
+
+    let areaSelect =
+    document.getElementById("area");
+
+    areaSelect.innerHTML =
+    '<option value="">Select Area</option>';
+
+    if(areas[district]){
+
+        areas[district].forEach(function(area){
+
+            areaSelect.innerHTML +=
+            `<option>${area}</option>`;
+
+        });
+
+    }
+
+});
+
+/* Search Workers */
+
 function searchWorkers(){
 
-let service =
-document.getElementById("service").value;
+    let district =
+    document.getElementById("district").value;
 
-let location =
-document.getElementById("location").value;
+    let area =
+    document.getElementById("area").value;
 
-if(service=="" || location==""){
+    let service =
+    document.getElementById("service").value;
 
-alert(
-"Please fill all fields"
-);
+    if(
+        district=="" ||
+        area=="" ||
+        service==""
+    ){
 
-return;
+        alert("Please select all fields");
+        return;
 
-}
+    }
 
-alert(
-"Searching " + service +
-" workers in " + location
-);
-
-}
-
-if(navigator.geolocation){
-
-    navigator.geolocation.getCurrentPosition(
-
-        function(position){
-
-            let latitude = position.coords.latitude;
-            let longitude = position.coords.longitude;
-
-            document.getElementById("location").value =
-            latitude.toFixed(5) + ", " +
-            longitude.toFixed(5);
-
-            alert("Location captured successfully!");
-
-        },
-
-        function(error){
-
-            alert("Please allow location access.");
-
-        }
-
+    alert(
+        "Searching " +
+        service +
+        " workers in " +
+        area +
+        ", " +
+        district
     );
 
 }
-else{
 
-    alert("Geolocation is not supported by this browser.");
+/* Nearby Workers */
+
+function getLocation(){
+
+    if(navigator.geolocation){
+
+        navigator.geolocation.getCurrentPosition(
+
+            function(position){
+
+                alert(
+                    "Latitude : " +
+                    position.coords.latitude +
+                    "\nLongitude : " +
+                    position.coords.longitude
+                );
+
+            },
+
+            function(){
+
+                alert(
+                    "Please allow location access"
+                );
+
+            }
+
+        );
+
+    }
+    else{
+
+        alert(
+            "Geolocation not supported"
+        );
+
+    }
 
 }
 
