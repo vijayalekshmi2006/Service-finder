@@ -92,7 +92,10 @@ document.getElementById("serviceTitle").innerHTML =
 service + " Workers";
 
 let workers = "";
-
+let registeredWorkers =
+JSON.parse(
+    localStorage.getItem("workers")
+) || [];
 /* Electrician */
 
 if(service === "Electrician"){
@@ -257,7 +260,42 @@ Book Now
 `;
 
 }
+registeredWorkers.forEach(function(worker){
 
+    if(worker.skill === service){
+
+        workers += `
+
+        <div class="col-md-4">
+
+            <div class="worker-card">
+
+                <h3>${worker.name}</h3>
+
+                <p>Skill : ${worker.skill}</p>
+
+                <p>Experience : ${worker.experience}</p>
+
+                <p>Price : ₹${worker.price}</p>
+
+                <p class="rating">⭐⭐⭐⭐⭐</p>
+
+                <button
+                class="btn btn-success w-100"
+                onclick="bookRegisteredWorker('${worker.name}')">
+
+                    Book Now
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+    }
+
+});
 document.getElementById("workerList").innerHTML =
 workers;
 
@@ -275,6 +313,26 @@ localStorage.setItem("workerPrice",price);
 
 window.location.href="book_service2.html";
 
+}
+function bookRegisteredWorker(name){
+
+    let workers =
+    JSON.parse(
+        localStorage.getItem("workers")
+    ) || [];
+
+    let selectedWorker =
+    workers.find(
+        worker => worker.name === name
+    );
+
+    localStorage.setItem(
+        "selectedWorker",
+        JSON.stringify(selectedWorker)
+    );
+
+    window.location.href =
+    "book_service2.html";
 }
 
 </script>

@@ -506,9 +506,16 @@ workerData.photo = photo;
 
 }
 
+let workers =
+JSON.parse(
+    localStorage.getItem("workers")
+) || [];
+
+workers.push(workerData);
+
 localStorage.setItem(
-"workerData",
-JSON.stringify(workerData)
+    "workers",
+    JSON.stringify(workers)
 );
 
 alert(

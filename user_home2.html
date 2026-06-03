@@ -504,23 +504,28 @@ function searchWorkers(){
         return;
     }
 
-    let worker =
-    JSON.parse(
-        localStorage.getItem("workerData")
-    );
+    let workers =
+JSON.parse(
+    localStorage.getItem("workers")
+) || [];
 
-    if(
-        worker &&
-        worker.district === district &&
-        worker.area === area &&
-        worker.skill === service
-    ){
+    let matchedWorkers = workers.filter(worker =>
 
-        document.getElementById(
-        "workerResult"
-        ).innerHTML = `
+    worker.district === district &&
+    worker.area === area &&
+    worker.skill === service
 
-        <div class="card shadow p-4">
+);
+
+if(matchedWorkers.length > 0){
+
+    let result = "";
+
+    matchedWorkers.forEach(function(worker){
+
+        result += `
+
+        <div class="card shadow p-4 mb-3">
 
             <h3>${worker.name}</h3>
 
@@ -538,35 +543,30 @@ function searchWorkers(){
 
             <button
             class="btn btn-success"
-            onclick="bookWorker()">
+            onclick='selectWorker(${JSON.stringify(worker)})'>
 
                 Book Now
 
             </button>
 
         </div>
+
         `;
+    });
 
-    }
-    else{
-
-        document.getElementById(
-        "workerResult"
-        ).innerHTML =
-
-        `<div class="alert alert-danger">
-            No workers found
-        </div>`;
-
-    }
+    document.getElementById("workerResult").innerHTML =
+    result;
 
 }
-function bookWorker(){
+else{
 
-    let worker =
-    JSON.parse(
-        localStorage.getItem("workerData")
-    );
+    document.getElementById("workerResult").innerHTML =
+
+    `<div class="alert alert-danger">
+        No workers found
+    </div>`;
+}
+function selectWorker(worker){
 
     localStorage.setItem(
         "selectedWorker",
@@ -575,8 +575,9 @@ function bookWorker(){
 
     window.location.href =
     "book_service2.html";
-
 }
+}
+
 
 /* Nearby Workers */
 
