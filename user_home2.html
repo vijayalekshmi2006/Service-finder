@@ -299,13 +299,12 @@ Electrician | Plumber | AC Repair | Painter
 
 <div class="container mt-5">
 
-<h2 class="text-center mb-4">
-    <div class="container mt-4">
-
+<div class="container mt-4">
     <div id="workerResult"></div>
-
 </div>
-Popular Categories
+
+<h2 class="text-center mb-4">
+    Popular Categories
 </h2>
 
 <div class="row g-4">
@@ -564,9 +563,18 @@ function searchWorkers(){
 }
 function bookWorker(){
 
-    alert(
-    "Worker booked successfully!"
+    let worker =
+    JSON.parse(
+        localStorage.getItem("workerData")
     );
+
+    localStorage.setItem(
+        "selectedWorker",
+        JSON.stringify(worker)
+    );
+
+    window.location.href =
+    "book_service2.html";
 
 }
 

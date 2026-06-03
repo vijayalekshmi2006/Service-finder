@@ -159,56 +159,66 @@ Confirm Booking
 </div>
 
 <script>
+let worker =
+JSON.parse(
+    localStorage.getItem("selectedWorker")
+);
 
-/* Show Worker Details */
+if(worker){
 
-document.getElementById("workerName").innerHTML =
-localStorage.getItem("workerName");
+    document.getElementById("workerName").innerHTML =
+    worker.name;
 
-document.getElementById("workerSkill").innerHTML =
-"Skill : " +
-localStorage.getItem("workerSkill");
+    document.getElementById("workerSkill").innerHTML =
+    "Skill : " + worker.skill;
 
-document.getElementById("workerExperience").innerHTML =
-"Experience : " +
-localStorage.getItem("workerExperience");
+    document.getElementById("workerExperience").innerHTML =
+    "Experience : " + worker.experience + " Years";
 
-document.getElementById("workerPrice").innerHTML =
-"Price : ₹" +
-localStorage.getItem("workerPrice");
+    document.getElementById("workerPrice").innerHTML =
+    "Price : ₹" + worker.price;
+
+}
+
 
 /* Booking Function */
 
 function confirmBooking(){
 
-let date =
-document.getElementById("date").value;
+    let date =
+    document.getElementById("date").value;
 
-let time =
-document.getElementById("time").value;
+    let time =
+    document.getElementById("time").value;
 
-let address =
-document.getElementById("address").value;
+    let address =
+    document.getElementById("address").value;
 
-let phone =
-document.getElementById("phone").value;
+    let phone =
+    document.getElementById("phone").value;
 
-if(date=="" || time=="" || address=="" || phone==""){
+    if(
+        date=="" ||
+        time=="" ||
+        address=="" ||
+        phone==""
+    ){
 
-alert("Please fill all fields");
+        alert(
+        "Please fill all fields"
+        );
 
-return;
+        return;
+    }
+
+    alert(
+    "Booking Confirmed Successfully!"
+    );
+
+    window.location.href =
+    "user_home2.html";
 
 }
-
-alert("Booking Confirmed Successfully");
-
-/* Next Page */
-
-window.location.href="my_bookings.html";
-
-}
-
 </script>
 
 </body>
