@@ -300,6 +300,11 @@ Electrician | Plumber | AC Repair | Painter
 <div class="container mt-5">
 
 <h2 class="text-center mb-4">
+    <div class="container mt-4">
+
+    <div id="workerResult"></div>
+
+</div>
 Popular Categories
 </h2>
 
@@ -496,19 +501,71 @@ function searchWorkers(){
         area=="" ||
         service==""
     ){
-
         alert("Please select all fields");
         return;
+    }
+
+    let worker =
+    JSON.parse(
+        localStorage.getItem("workerData")
+    );
+
+    if(
+        worker &&
+        worker.district === district &&
+        worker.area === area &&
+        worker.skill === service
+    ){
+
+        document.getElementById(
+        "workerResult"
+        ).innerHTML = `
+
+        <div class="card shadow p-4">
+
+            <h3>${worker.name}</h3>
+
+            <p><b>Service:</b> ${worker.skill}</p>
+
+            <p><b>Phone:</b> ${worker.phone}</p>
+
+            <p><b>District:</b> ${worker.district}</p>
+
+            <p><b>Area:</b> ${worker.area}</p>
+
+            <p><b>Experience:</b> ${worker.experience}</p>
+
+            <p><b>Price:</b> ₹${worker.price}</p>
+
+            <button
+            class="btn btn-success"
+            onclick="bookWorker()">
+
+                Book Now
+
+            </button>
+
+        </div>
+        `;
+
+    }
+    else{
+
+        document.getElementById(
+        "workerResult"
+        ).innerHTML =
+
+        `<div class="alert alert-danger">
+            No workers found
+        </div>`;
 
     }
 
+}
+function bookWorker(){
+
     alert(
-        "Searching " +
-        service +
-        " workers in " +
-        area +
-        ", " +
-        district
+    "Worker booked successfully!"
     );
 
 }
