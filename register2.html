@@ -506,17 +506,36 @@ workerData.photo = photo;
 
 }
 
-let workers =
-JSON.parse(
-    localStorage.getItem("workers")
-) || [];
+if(role === "worker"){
 
-workers.push(workerData);
+    let workers =
+    JSON.parse(
+        localStorage.getItem("workers")
+    ) || [];
 
-localStorage.setItem(
-    "workers",
-    JSON.stringify(workers)
-);
+    workers.push(workerData);
+
+    localStorage.setItem(
+        "workers",
+        JSON.stringify(workers)
+    );
+
+}
+else{
+
+    let users =
+    JSON.parse(
+        localStorage.getItem("users")
+    ) || [];
+
+    users.push(workerData);
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
+}
 
 alert(
 "Registration Successful"

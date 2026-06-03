@@ -95,43 +95,35 @@ Welcome Admin
 
 <div class="row g-4">
 
-<div class="col-md-4">
+<div class="col-md-6">
 
 <div class="card-box">
 
 <h4>Total Users</h4>
 
-<div class="number">2</div>
+<div class="number" id="totalUsers">0</div>
 
 </div>
 
 </div>
 
-<div class="col-md-4">
+<div class="col-md-6">
 
 <div class="card-box">
 
 <h4>Total Workers</h4>
 
-<div class="number">2</div>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card-box">
-
-<h4>Total Bookings</h4>
-
-<div class="number">2</div>
+<div class="number" id="totalWorkers">0</div>
 
 </div>
 
 </div>
 
 </div>
+
+
+
+
 
 <!-- Management Section -->
 
@@ -156,6 +148,8 @@ Open
 
 </div>
 
+
+
 <div class="col-md-4">
 
 <div class="card-box">
@@ -166,25 +160,6 @@ Open
 
 <a href="manage_workers.html"
 class="btn btn-success manage-btn">
-
-Open
-
-</a>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card-box">
-
-<h4>Manage Bookings</h4>
-
-<p>View all service bookings</p>
-
-<a href="manage_bookings.html"
-class="btn btn-warning manage-btn">
 
 Open
 
@@ -205,6 +180,26 @@ Open
 © 2026 Local Service Finder - Admin Panel
 
 </div>
+<script>
 
+let users =
+JSON.parse(
+localStorage.getItem("users")
+) || [];
+
+let workers =
+JSON.parse(
+localStorage.getItem("workers")
+) || [];
+
+document.getElementById(
+"totalUsers"
+).innerHTML = users.length;
+
+document.getElementById(
+"totalWorkers"
+).innerHTML = workers.length;
+
+</script>
 </body>
 </html>

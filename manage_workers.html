@@ -89,39 +89,7 @@ Registered Workers
 
 </thead>
 
-<tbody>
-
-<tr>
-
-<td>1</td>
-<td>Ravi Kumar</td>
-<td>Electrician</td>
-<td>5 Years</td>
-<td>Chennai</td>
-
-<td>
-<button class="btn btn-danger btn-sm">
-Delete
-</button>
-</td>
-
-</tr>
-
-<tr>
-
-<td>2</td>
-<td>Suresh</td>
-<td>Plumber</td>
-<td>6 Years</td>
-<td>Coimbatore</td>
-
-<td>
-<button class="btn btn-danger btn-sm">
-Delete
-</button>
-</td>
-
-</tr>
+<tbody id="workerTable">
 
 </tbody>
 
@@ -134,6 +102,52 @@ Delete
 <div class="footer">
 © 2026 Local Service Finder
 </div>
+<script>
 
+let workers =
+JSON.parse(
+localStorage.getItem("workers")
+) || [];
+
+let rows = "";
+
+workers.forEach(function(worker,index){
+
+rows += `
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>${worker.name}</td>
+
+<td>${worker.skill}</td>
+
+<td>${worker.experience}</td>
+
+<td>${worker.district}</td>
+
+<td>
+
+<button
+class="btn btn-danger btn-sm">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+"workerTable"
+).innerHTML = rows;
+
+</script>
 </body>
 </html>

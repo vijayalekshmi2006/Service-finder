@@ -88,37 +88,7 @@ Registered Users
 
 </thead>
 
-<tbody>
-
-<tr>
-
-<td>1</td>
-<td>Arjun</td>
-<td>arjun@gmail.com</td>
-<td>Chennai</td>
-
-<td>
-<button class="btn btn-danger btn-sm">
-Delete
-</button>
-</td>
-
-</tr>
-
-<tr>
-
-<td>2</td>
-<td>Sneha</td>
-<td>sneha@gmail.com</td>
-<td>Coimbatore</td>
-
-<td>
-<button class="btn btn-danger btn-sm">
-Delete
-</button>
-</td>
-
-</tr>
+<tbody id="userTable">
 
 </tbody>
 
@@ -134,3 +104,48 @@ Delete
 
 </body>
 </html>
+<script>
+
+let users =
+JSON.parse(
+localStorage.getItem("users")
+) || [];
+
+let rows = "";
+
+users.forEach(function(user,index){
+
+rows += `
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>${user.name}</td>
+
+<td>${user.email}</td>
+
+<td>${user.district}</td>
+
+<td>
+
+<button
+class="btn btn-danger btn-sm">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+"userTable"
+).innerHTML = rows;
+
+</script>
