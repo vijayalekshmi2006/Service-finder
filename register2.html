@@ -15,10 +15,12 @@
 
 body{
     margin:0;
-    font-family:Arial;
+    font-family:Arial,sans-serif;
 
     background:
-    linear-gradient(rgba(0,119,204,0.8),rgba(0,198,255,0.7)),
+    linear-gradient(
+    rgba(0,119,204,0.55),
+    rgba(0,198,255,0.45)),
     url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070');
 
     background-size:cover;
@@ -33,14 +35,18 @@ body{
     padding:30px;
 }
 
-/* Register Box */
-
 .register-box{
-    width:500px;
+    width:100%;
+    max-width:550px;
+
     background:white;
+
     padding:35px;
+
     border-radius:20px;
-    box-shadow:0 0 20px rgba(0,0,0,0.2);
+
+    box-shadow:
+    0 0 20px rgba(0,0,0,0.2);
 }
 
 .register-title{
@@ -56,17 +62,22 @@ body{
     border-radius:10px;
 }
 
-/* Button */
-
 .register-btn{
     width:100%;
     height:50px;
+
     border:none;
+
     border-radius:10px;
+
     background:#0077cc;
+
     color:white;
+
     font-size:18px;
+
     font-weight:bold;
+
     transition:0.3s;
 }
 
@@ -74,11 +85,13 @@ body{
     background:#005fa3;
 }
 
-/* Login Link */
-
 .login-link{
     text-align:center;
     margin-top:20px;
+}
+
+#workerFields{
+    display:none;
 }
 
 </style>
@@ -97,9 +110,7 @@ Register
 
 </h2>
 
-<form onsubmit="return registerUser()">
-
-<!-- Role -->
+<form id="registerForm">
 
 <div class="mb-3">
 
@@ -107,7 +118,8 @@ Register
 Register As
 </label>
 
-<select id="role"
+<select
+id="role"
 class="form-select"
 onchange="toggleFields()">
 
@@ -127,22 +139,19 @@ Worker
 
 </div>
 
-<!-- Name -->
-
 <div class="mb-3">
 
 <label class="form-label">
 Name
 </label>
 
-<input type="text"
+<input
+type="text"
 id="name"
 class="form-control"
 placeholder="Enter your name">
 
 </div>
-
-<!-- Phone -->
 
 <div class="mb-3">
 
@@ -150,14 +159,13 @@ placeholder="Enter your name">
 Phone
 </label>
 
-<input type="number"
+<input
+type="tel"
 id="phone"
 class="form-control"
 placeholder="Enter phone number">
 
 </div>
-
-<!-- Email -->
 
 <div class="mb-3">
 
@@ -165,14 +173,13 @@ placeholder="Enter phone number">
 Email
 </label>
 
-<input type="email"
+<input
+type="email"
 id="email"
 class="form-control"
 placeholder="Enter email">
 
 </div>
-
-<!-- Password -->
 
 <div class="mb-3">
 
@@ -180,14 +187,26 @@ placeholder="Enter email">
 Password
 </label>
 
-<input type="password"
+<div class="input-group">
+
+<input
+type="password"
 id="password"
 class="form-control"
 placeholder="Enter password">
 
+<button
+type="button"
+class="btn btn-outline-secondary"
+onclick="togglePassword()">
+
+<i class="bi bi-eye"></i>
+
+</button>
+
 </div>
 
-<!-- District -->
+</div>
 
 <div class="mb-3">
 
@@ -195,14 +214,13 @@ placeholder="Enter password">
 District
 </label>
 
-<input type="text"
+<input
+type="text"
 id="district"
 class="form-control"
 placeholder="Enter district">
 
 </div>
-
-<!-- Area -->
 
 <div class="mb-3">
 
@@ -210,18 +228,15 @@ placeholder="Enter district">
 Area
 </label>
 
-<input type="text"
+<input
+type="text"
 id="area"
 class="form-control"
 placeholder="Enter area">
 
 </div>
 
-<!-- Worker Fields -->
-
-<div id="workerFields" style="display:none;">
-
-<!-- Skill -->
+<div id="workerFields">
 
 <div class="mb-3">
 
@@ -229,7 +244,8 @@ placeholder="Enter area">
 Skill
 </label>
 
-<select id="skill"
+<select
+id="skill"
 class="form-select">
 
 <option value="">
@@ -245,22 +261,19 @@ Select Skill
 
 </div>
 
-<!-- Price -->
-
 <div class="mb-3">
 
 <label class="form-label">
 Price
 </label>
 
-<input type="number"
+<input
+type="number"
 id="price"
 class="form-control"
 placeholder="Enter service price">
 
 </div>
-
-<!-- Experience -->
 
 <div class="mb-3">
 
@@ -268,14 +281,13 @@ placeholder="Enter service price">
 Experience
 </label>
 
-<input type="text"
+<input
+type="text"
 id="experience"
 class="form-control"
 placeholder="Enter experience">
 
 </div>
-
-<!-- Photo -->
 
 <div class="mb-3">
 
@@ -283,7 +295,8 @@ placeholder="Enter experience">
 Upload Photo
 </label>
 
-<input type="file"
+<input
+type="file"
 id="photo"
 class="form-control">
 
@@ -291,9 +304,8 @@ class="form-control">
 
 </div>
 
-<!-- Button -->
-
-<button type="submit"
+<button
+type="submit"
 class="register-btn">
 
 Register
@@ -301,8 +313,6 @@ Register
 </button>
 
 </form>
-
-<!-- Login Link -->
 
 <div class="login-link">
 
@@ -324,8 +334,6 @@ Login
 
 <script>
 
-/* Show Worker Fields */
-
 function toggleFields(){
 
 let role =
@@ -334,12 +342,11 @@ document.getElementById("role").value;
 let workerFields =
 document.getElementById("workerFields");
 
-if(role=="worker"){
+if(role==="worker"){
 
 workerFields.style.display="block";
 
 }
-
 else{
 
 workerFields.style.display="none";
@@ -348,7 +355,36 @@ workerFields.style.display="none";
 
 }
 
-/* Register Validation */
+function togglePassword(){
+
+let password =
+document.getElementById("password");
+
+if(password.type==="password"){
+
+password.type="text";
+
+}
+else{
+
+password.type="password";
+
+}
+
+}
+
+document
+.getElementById("registerForm")
+.addEventListener(
+"submit",
+function(e){
+
+e.preventDefault();
+
+registerUser();
+
+}
+);
 
 function registerUser(){
 
@@ -356,46 +392,85 @@ let role =
 document.getElementById("role").value;
 
 let name =
-document.getElementById("name").value;
+document.getElementById("name").value.trim();
 
 let phone =
-document.getElementById("phone").value;
+document.getElementById("phone").value.trim();
 
 let email =
-document.getElementById("email").value;
+document.getElementById("email").value.trim();
 
 let password =
-document.getElementById("password").value;
+document.getElementById("password").value.trim();
 
 let district =
-document.getElementById("district").value;
+document.getElementById("district").value.trim();
 
 let area =
-document.getElementById("area").value;
-
-/* Common Validation */
+document.getElementById("area").value.trim();
 
 if(
-role=="" ||
-name=="" ||
-phone=="" ||
-email=="" ||
-password=="" ||
-district=="" ||
-area==""
+role==="" ||
+name==="" ||
+phone==="" ||
+email==="" ||
+password==="" ||
+district==="" ||
+area===""
 ){
 
-alert(
-"Please fill all fields"
-);
+alert("Please fill all fields");
 
-return false;
+return;
 
 }
 
-/* Worker Validation */
+if(phone.length!==10){
 
-if(role=="worker"){
+alert(
+"Phone number must contain 10 digits"
+);
+
+return;
+
+}
+
+let emailPattern =
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!emailPattern.test(email)){
+
+alert(
+"Enter a valid email address"
+);
+
+return;
+
+}
+
+if(password.length<6){
+
+alert(
+"Password must be at least 6 characters"
+);
+
+return;
+
+}
+
+let workerData = {
+
+role,
+name,
+phone,
+email,
+password,
+district,
+area
+
+};
+
+if(role==="worker"){
 
 let skill =
 document.getElementById("skill").value;
@@ -410,33 +485,38 @@ let photo =
 document.getElementById("photo").value;
 
 if(
-skill=="" ||
-price=="" ||
-experience=="" ||
-photo==""
+skill==="" ||
+price==="" ||
+experience==="" ||
+photo===""
 ){
 
 alert(
 "Please fill all worker fields"
 );
 
-return false;
+return;
 
 }
 
+workerData.skill = skill;
+workerData.price = price;
+workerData.experience = experience;
+workerData.photo = photo;
+
 }
 
-/* Success */
+localStorage.setItem(
+"workerData",
+JSON.stringify(workerData)
+);
 
 alert(
 "Registration Successful"
 );
 
-/* Redirect */
-
-window.location.href="login2.html";
-
-return false;
+window.location.href =
+"login2.html";
 
 }
 

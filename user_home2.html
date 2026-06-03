@@ -434,35 +434,37 @@ alert(
 
 }
 
-/* Current Location */
-
-function getLocation(){
-
 if(navigator.geolocation){
 
-navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.getCurrentPosition(
 
-function(position){
+        function(position){
 
-alert(
-"Location Accessed Successfully"
-);
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
 
-});
+            document.getElementById("location").value =
+            latitude.toFixed(5) + ", " +
+            longitude.toFixed(5);
+
+            alert("Location captured successfully!");
+
+        },
+
+        function(error){
+
+            alert("Please allow location access.");
+
+        }
+
+    );
 
 }
-
 else{
 
-alert(
-"Location not supported"
-);
+    alert("Geolocation is not supported by this browser.");
 
 }
-
-}
-
-/* Logout */
 
 function logout(){
 

@@ -15,11 +15,9 @@
 
 body{
     margin:0;
-    font-family:Arial;
+    font-family:Arial,sans-serif;
     background:#f4f7fb;
 }
-
-/* Navbar */
 
 .navbar{
     background:white;
@@ -31,8 +29,6 @@ body{
     font-weight:bold;
 }
 
-/* Profile */
-
 .profile-card{
     background:white;
     border-radius:20px;
@@ -41,50 +37,39 @@ body{
     box-shadow:0 0 15px rgba(0,0,0,0.1);
 }
 
-.rating{
-    color:orange;
-    font-size:20px;
+.profile-img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    margin-bottom:15px;
 }
-
-/* Request Cards */
 
 .request-card{
     background:white;
     border-radius:20px;
     padding:25px;
     box-shadow:0 0 15px rgba(0,0,0,0.1);
-    transition:0.3s;
+    margin-bottom:20px;
 }
 
-.request-card:hover{
-    transform:translateY(-5px);
-}
-
-/* Buttons */
-
-.accept-btn{
-    background:#28a745;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:10px;
-}
-
-.reject-btn{
-    background:#dc3545;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:10px;
+.stat-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
 }
 
 .edit-btn{
     background:#0077cc;
     color:white;
     border:none;
-    padding:12px 25px;
+    padding:10px 20px;
     border-radius:10px;
-    margin-top:15px;
+}
+
+.edit-btn:hover{
+    background:#005fa3;
 }
 
 .footer{
@@ -103,19 +88,19 @@ body{
 
 <!-- Navbar -->
 
-<nav class="navbar navbar-expand-lg navbar-light p-3">
+<nav class="navbar navbar-expand-lg p-3">
 
 <div class="container">
 
-<a class="navbar-brand text-primary" href="#">
+<a class="navbar-brand text-primary">
 
 <i class="bi bi-tools"></i>
-
 LocalServiceFinder
 
 </a>
 
-<button class="btn btn-danger"
+<button
+class="btn btn-danger"
 onclick="logout()">
 
 Logout
@@ -126,137 +111,100 @@ Logout
 
 </nav>
 
-<!-- Profile -->
+<!-- Main Section -->
 
 <div class="container mt-5">
+
+<div class="row">
+
+<!-- Profile -->
+
+<div class="col-lg-4">
 
 <div class="profile-card">
 
-<h2>
-Ravi Kumar
-</h2>
+<img
+src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+class="profile-img">
+
+<h3 id="workerName">Worker Name</h3>
+
+<p id="workerSkill">Skill</p>
+
+<hr>
 
 <p>
-Electrician
+<b>Phone:</b>
+<span id="workerPhone"></span>
 </p>
 
 <p>
-Experience : 5 Years
+<b>District:</b>
+<span id="workerDistrict"></span>
 </p>
 
 <p>
-Price : ₹500
+<b>Area:</b>
+<span id="workerArea"></span>
 </p>
 
-<p class="rating">
-⭐⭐⭐⭐☆
+<p>
+<b>Experience:</b>
+<span id="workerExperience"></span>
 </p>
 
-<a href="edit.html"
-class="edit-btn text-decoration-none d-inline-block">
+<p>
+<b>Price:</b>
+₹<span id="workerPrice"></span>
+</p>
+
+<button
+class="edit-btn"
+onclick="editProfile()">
 
 Edit Profile
 
-</a>
-</div>
+</button>
 
 </div>
 
-<!-- Incoming Requests -->
+</div>
 
-<div class="container mt-5">
+<!-- Right Side -->
 
-<h2 class="text-center mb-4">
-Incoming Requests
-</h2>
+<div class="col-lg-8">
 
-<div class="row g-4">
-
-<!-- Request 1 -->
+<div class="row mb-4">
 
 <div class="col-md-6">
 
-<div class="request-card">
+<div class="stat-card">
 
-<h4>
-User : Arjun
-</h4>
+<h5>Total Requests</h5>
 
-<p>
-Service : Electrical Repair
-</p>
-
-<p>
-Location : Chennai
-</p>
-
-<p>
-Date : 29 May 2026
-</p>
-
-<div class="d-flex gap-3">
-
-<button class="accept-btn"
-onclick="acceptRequest()">
-
-Accept
-
-</button>
-
-<button class="reject-btn"
-onclick="rejectRequest()">
-
-Reject
-
-</button>
+<h2>15</h2>
 
 </div>
 
 </div>
-
-</div>
-
-<!-- Request 2 -->
 
 <div class="col-md-6">
 
-<div class="request-card">
+<div class="stat-card">
 
-<h4>
-User : sneha
-</h4>
+<h5>Completed Jobs</h5>
 
-<p>
-Service : Fan Installation
-</p>
-
-<p>
-Location : Coimbatore
-</p>
-
-<p>
-Date : 29 May 2026
-</p>
-
-<div class="d-flex gap-3">
-
-<button class="accept-btn"
-onclick="acceptRequest()">
-
-Accept
-
-</button>
-
-<button class="reject-btn"
-onclick="rejectRequest()">
-
-Reject
-
-</button>
+<h2>10</h2>
 
 </div>
 
 </div>
+
+</div>
+
+<!-- Request Card -->
+
+
 
 </div>
 
@@ -266,37 +214,64 @@ Reject
 
 <!-- Footer -->
 
-<footer class="footer">
+<div class="footer">
 
-<p>
-© 2026 Local Service Finder
-</p>
+© 2026 LocalServiceFinder
 
-</footer>
+</div>
 
 <script>
 
-/* Accept */
+/* Load Worker Data */
 
-function acceptRequest(){
-
-alert(
-"Request Accepted"
+let worker =
+JSON.parse(
+localStorage.getItem("workerData")
 );
+
+if(worker){
+
+document.getElementById(
+"workerName"
+).innerHTML = worker.name;
+
+document.getElementById(
+"workerSkill"
+).innerHTML = worker.skill || "-";
+
+document.getElementById(
+"workerPhone"
+).innerHTML = worker.phone;
+
+document.getElementById(
+"workerDistrict"
+).innerHTML = worker.district;
+
+document.getElementById(
+"workerArea"
+).innerHTML = worker.area;
+
+document.getElementById(
+"workerExperience"
+).innerHTML =
+worker.experience || "-";
+
+document.getElementById(
+"workerPrice"
+).innerHTML =
+worker.price || "-";
 
 }
 
-/* Reject */
+/* Edit Profile */
 
-function rejectRequest(){
+function editProfile(){
 
 alert(
-"Request Rejected"
+"Edit Profile Page Coming Soon"
 );
 
 }
-
-
 
 /* Logout */
 
@@ -304,12 +279,13 @@ function logout(){
 
 let confirmLogout =
 confirm(
-"Are you sure want to logout?"
+"Are you sure you want to logout?"
 );
 
 if(confirmLogout){
 
-window.location.href="index2.html";
+window.location.href =
+"index2.html";
 
 }
 
