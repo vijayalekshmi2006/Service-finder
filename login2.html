@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 
@@ -11,7 +12,75 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<link rel="stylesheet" href="login2.css">
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+
+    background:
+    linear-gradient(rgba(0,119,204,0.8),rgba(0,198,255,0.7)),
+    url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070');
+
+    background-size:cover;
+    background-position:center;
+
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Login Box */
+
+.login-box{
+    width:400px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+
+.login-title{
+    text-align:center;
+    margin-bottom:25px;
+    color:#0077cc;
+    font-weight:bold;
+}
+
+.form-control,
+.form-select{
+    height:50px;
+    border-radius:10px;
+}
+
+/* Button */
+
+.login-btn{
+    width:100%;
+    height:50px;
+    border:none;
+    border-radius:10px;
+    background:#0077cc;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.login-btn:hover{
+    background:#005fa3;
+}
+
+/* Register Link */
+
+.register-link{
+    text-align:center;
+    margin-top:20px;
+}
+
+</style>
 
 </head>
 
@@ -20,48 +89,27 @@
 <div class="login-box">
 
 <h2 class="login-title">
-
 <i class="bi bi-person-circle"></i>
-
 Login
-
 </h2>
 
 <form onsubmit="return loginUser()">
 
 <div class="mb-3">
-
-<label class="form-label">
-Login As
-</label>
+<label class="form-label">Login As</label>
 
 <select id="role" class="form-select">
-
-<option value="">
-Select Role
-</option>
-
-<option value="user">
-User
-</option>
-
-<option value="worker">
-Worker
-</option>
-
-<option value="admin">
-Admin
-</option>
-
+<option value="">Select Role</option>
+<option value="user">User</option>
+<option value="worker">Worker</option>
+<option value="admin">Admin</option>
 </select>
 
 </div>
 
 <div class="mb-3">
 
-<label class="form-label">
-Email
-</label>
+<label class="form-label">Email</label>
 
 <input type="email"
 id="email"
@@ -72,9 +120,7 @@ placeholder="Enter your email">
 
 <div class="mb-3">
 
-<label class="form-label">
-Password
-</label>
+<label class="form-label">Password</label>
 
 <input type="password"
 id="password"
@@ -83,11 +129,8 @@ placeholder="Enter your password">
 
 </div>
 
-<button type="submit"
-class="login-btn">
-
+<button type="submit" class="login-btn">
 Login
-
 </button>
 
 </form>
@@ -95,23 +138,80 @@ Login
 <div class="register-link">
 
 <p>
-
 Don't have an account?
-
-<a href="register2.html">
-
-Register
-
-</a>
-
+<a href="register2.html">Register</a>
 </p>
 
 </div>
 
 </div>
 
-<script src="login2.js">
+<script>
 
+function loginUser(){
+
+let role =
+document.getElementById("role").value;
+
+let email =
+document.getElementById("email").value;
+
+let password =
+document.getElementById("password").value;
+
+/* Validation */
+
+if(role=="" || email=="" || password==""){
+
+alert("Please fill all fields");
+
+return false;
+
+}
+
+/* Admin Login */
+
+if(role=="admin"){
+
+if(email=="admin@gmail.com" &&
+password=="admin123"){
+
+alert("Admin Login Successful");
+
+window.location.href="admin_dashboard.html";
+
+}
+else{
+
+alert("Invalid Admin Email or Password");
+
+}
+
+}
+
+/* User Login */
+
+else if(role=="user"){
+
+alert("User Login Successful");
+
+window.location.href="user_home2.html";
+
+}
+
+/* Worker Login */
+
+else if(role=="worker"){
+
+alert("Worker Login Successful");
+
+window.location.href="worker_home2.html";
+
+}
+
+return false;
+
+}
 
 </script>
 
