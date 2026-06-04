@@ -302,7 +302,17 @@ Electrician | Plumber | AC Repair | Painter
 <div class="container mt-4">
     <div id="workerResult"></div>
 </div>
+<div class="container mt-4">
 
+    <div class="info-box">
+
+        <h3>My Bookings</h3>
+
+        <div id="bookingStatus"></div>
+
+    </div>
+
+</div>
 <h2 class="text-center mb-4">
     Popular Categories
 </h2>
@@ -633,7 +643,52 @@ window.location.href="index2.html";
 }
 
 }
+let currentUser =
+JSON.parse(
+localStorage.getItem("currentUser")
+);
 
+let bookings =
+JSON.parse(
+localStorage.getItem("bookings")
+) || [];
+
+let bookingHtml = "";
+
+bookings.forEach(function(booking){
+
+    if(
+        currentUser &&
+        booking.userName === currentUser.name
+    ){
+
+        bookingHtml += `
+
+        <div class="card p-3 mb-3">
+
+            <h5>${booking.workerName}</h5>
+
+            <p>
+            Date:
+            ${booking.date}
+            </p>
+
+            <p>
+            Status:
+            <b>${booking.status}</b>
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+});
+
+document.getElementById(
+"bookingStatus"
+).innerHTML = bookingHtml;
 </script>
 
 </body>

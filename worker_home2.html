@@ -268,7 +268,7 @@ let requestHtml = "";
 
 let totalRequests = 0;
 
-bookings.forEach(function(booking){
+bookings.forEach(function(booking,index){
 
 if(
 worker &&
@@ -290,8 +290,23 @@ requestHtml += `
 <p><b>Address:</b> ${booking.address}</p>
 
 <p><b>Phone:</b> ${booking.phone}</p>
-
 <p><b>Status:</b> ${booking.status}</p>
+
+<button
+class="btn btn-success me-2"
+onclick="updateStatus(${index}, 'Accepted')">
+
+Accept
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="updateStatus(${index}, 'Rejected')">
+
+Reject
+
+</button>
 
 </div>
 
@@ -316,7 +331,22 @@ alert(
 );
 
 }
+function updateStatus(index,status){
 
+    bookings[index].status = status;
+
+    localStorage.setItem(
+        "bookings",
+        JSON.stringify(bookings)
+    );
+
+    alert(
+        "Request " + status
+    );
+
+    location.reload();
+
+}
 function logout(){
 
 if(
