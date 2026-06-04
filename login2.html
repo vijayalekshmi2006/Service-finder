@@ -193,9 +193,37 @@ alert("Invalid Admin Email or Password");
 
 else if(role=="user"){
 
-alert("User Login Successful");
+let users =
+JSON.parse(
+localStorage.getItem("users")
+) || [];
 
-window.location.href="user_home2.html";
+let user =
+users.find(function(u){
+
+    return u.email === email &&
+           u.password === password;
+
+});
+
+if(user){
+
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify(user)
+    );
+
+    alert("User Login Successful");
+
+    window.location.href =
+    "user_home2.html";
+
+}
+else{
+
+    alert("Invalid User Email or Password");
+
+}
 
 }
 
@@ -203,9 +231,37 @@ window.location.href="user_home2.html";
 
 else if(role=="worker"){
 
-alert("Worker Login Successful");
+let workers =
+JSON.parse(
+localStorage.getItem("workers")
+) || [];
 
-window.location.href="worker_home2.html";
+let worker =
+workers.find(function(w){
+
+    return w.email === email &&
+           w.password === password;
+
+});
+
+if(worker){
+
+    localStorage.setItem(
+        "workerData",
+        JSON.stringify(worker)
+    );
+
+    alert("Worker Login Successful");
+
+    window.location.href =
+    "worker_home2.html";
+
+}
+else{
+
+    alert("Invalid Worker Email or Password");
+
+}
 
 }
 

@@ -203,7 +203,7 @@ Edit Profile
 </div>
 
 <!-- Request Card -->
-
+<div id="requestList"></div>
 
 
 </div>
@@ -288,7 +288,61 @@ window.location.href =
 "index2.html";
 
 }
+let bookings =
+JSON.parse(
+localStorage.getItem("bookings")
+) || [];
 
+let requestHtml = "";
+
+bookings.forEach(function(booking){
+
+    if(
+        worker &&
+        booking.workerName === worker.name
+    ){
+
+        requestHtml += `
+
+        <div class="request-card">
+
+            <h4>${booking.userName}</h4>
+
+            <p>
+            Date :
+            ${booking.date}
+            </p>
+
+            <p>
+            Time :
+            ${booking.time}
+            </p>
+
+            <p>
+            Address :
+            ${booking.address}
+            </p>
+
+            <p>
+            Phone :
+            ${booking.phone}
+            </p>
+
+            <p>
+            Status :
+            ${booking.status}
+            </p>
+
+        </div>
+
+        `;
+    }
+
+});
+
+document.getElementById(
+"requestList"
+).innerHTML = requestHtml;
 }
 
 </script>

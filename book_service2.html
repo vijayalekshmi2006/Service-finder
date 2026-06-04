@@ -204,15 +204,50 @@ function confirmBooking(){
         phone==""
     ){
 
-        alert(
-        "Please fill all fields"
-        );
+        alert("Please fill all fields");
 
         return;
+
     }
 
+    let bookings =
+    JSON.parse(
+        localStorage.getItem("bookings")
+    ) || [];
+
+    let currentUser =
+    JSON.parse(
+        localStorage.getItem("currentUser")
+    );
+
+    bookings.push({
+
+        workerName: worker.name,
+
+        userName: currentUser.name,
+
+        date: date,
+
+        time: time,
+
+        address: address,
+
+        phone: phone,
+
+        status: "Pending"
+
+    });
+
+    localStorage.setItem(
+
+        "bookings",
+
+        JSON.stringify(bookings)
+
+    );
+
     alert(
-    "Booking Confirmed Successfully!"
+        "Booking Confirmed Successfully!"
     );
 
     window.location.href =
