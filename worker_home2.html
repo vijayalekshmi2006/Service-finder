@@ -182,7 +182,7 @@ Edit Profile
 
 <h5>Total Requests</h5>
 
-<h2>15</h2>
+<h2 id="totalRequests">0</h2>
 
 </div>
 
@@ -222,8 +222,6 @@ Edit Profile
 
 <script>
 
-/* Load Worker Data */
-
 let worker =
 JSON.parse(
 localStorage.getItem("workerData")
@@ -237,7 +235,7 @@ document.getElementById(
 
 document.getElementById(
 "workerSkill"
-).innerHTML = worker.skill || "-";
+).innerHTML = worker.skill;
 
 document.getElementById(
 "workerPhone"
@@ -253,17 +251,63 @@ document.getElementById(
 
 document.getElementById(
 "workerExperience"
-).innerHTML =
-worker.experience || "-";
+).innerHTML = worker.experience;
 
 document.getElementById(
 "workerPrice"
-).innerHTML =
-worker.price || "-";
+).innerHTML = worker.price;
 
 }
 
-/* Edit Profile */
+let bookings =
+JSON.parse(
+localStorage.getItem("bookings")
+) || [];
+
+let requestHtml = "";
+
+let totalRequests = 0;
+
+bookings.forEach(function(booking){
+
+if(
+worker &&
+booking.workerName === worker.name
+){
+
+totalRequests++;
+
+requestHtml += `
+
+<div class="request-card">
+
+<h4>${booking.userName}</h4>
+
+<p><b>Date:</b> ${booking.date}</p>
+
+<p><b>Time:</b> ${booking.time}</p>
+
+<p><b>Address:</b> ${booking.address}</p>
+
+<p><b>Phone:</b> ${booking.phone}</p>
+
+<p><b>Status:</b> ${booking.status}</p>
+
+</div>
+
+`;
+
+}
+
+});
+
+document.getElementById(
+"requestList"
+).innerHTML = requestHtml;
+
+document.getElementById(
+"totalRequests"
+).innerHTML = totalRequests;
 
 function editProfile(){
 
@@ -273,78 +317,24 @@ alert(
 
 }
 
-/* Logout */
-
 function logout(){
 
-let confirmLogout =
+if(
 confirm(
 "Are you sure you want to logout?"
-);
+)
+){
 
-if(confirmLogout){
+localStorage.removeItem(
+"workerData"
+);
 
 window.location.href =
 "index2.html";
 
 }
-let bookings =
-JSON.parse(
-localStorage.getItem("bookings")
-) || [];
 
-let requestHtml = "";
-
-bookings.forEach(function(booking){
-
-    if(
-        worker &&
-        booking.workerName === worker.name
-    ){
-
-        requestHtml += `
-
-        <div class="request-card">
-
-            <h4>${booking.userName}</h4>
-
-            <p>
-            Date :
-            ${booking.date}
-            </p>
-
-            <p>
-            Time :
-            ${booking.time}
-            </p>
-
-            <p>
-            Address :
-            ${booking.address}
-            </p>
-
-            <p>
-            Phone :
-            ${booking.phone}
-            </p>
-
-            <p>
-            Status :
-            ${booking.status}
-            </p>
-
-        </div>
-
-        `;
-    }
-
-});
-
-document.getElementById(
-"requestList"
-).innerHTML = requestHtml;
 }
-
 </script>
 
 </body>

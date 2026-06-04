@@ -198,22 +198,24 @@ JSON.parse(
 localStorage.getItem("users")
 ) || [];
 
-let user =
-users.find(function(u){
+let foundUser =
+users.find(function(user){
 
-    return u.email === email &&
-           u.password === password;
+    return user.email === email &&
+           user.password === password;
 
 });
 
-if(user){
+if(foundUser){
 
     localStorage.setItem(
         "currentUser",
-        JSON.stringify(user)
+        JSON.stringify(foundUser)
     );
 
-    alert("User Login Successful");
+    alert(
+        "User Login Successful"
+    );
 
     window.location.href =
     "user_home2.html";
@@ -221,7 +223,9 @@ if(user){
 }
 else{
 
-    alert("Invalid User Email or Password");
+    alert(
+        "Invalid User Email or Password"
+    );
 
 }
 
@@ -236,22 +240,24 @@ JSON.parse(
 localStorage.getItem("workers")
 ) || [];
 
-let worker =
-workers.find(function(w){
+let foundWorker =
+workers.find(function(worker){
 
-    return w.email === email &&
-           w.password === password;
+    return worker.email === email &&
+           worker.password === password;
 
 });
 
-if(worker){
+if(foundWorker){
 
     localStorage.setItem(
         "workerData",
-        JSON.stringify(worker)
+        JSON.stringify(foundWorker)
     );
 
-    alert("Worker Login Successful");
+    alert(
+        "Worker Login Successful"
+    );
 
     window.location.href =
     "worker_home2.html";
@@ -259,7 +265,9 @@ if(worker){
 }
 else{
 
-    alert("Invalid Worker Email or Password");
+    alert(
+        "Invalid Worker Email or Password"
+    );
 
 }
 
