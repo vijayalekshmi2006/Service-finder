@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>User Home Page</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fb;
+}
+
+/* Navbar */
+
+.navbar{
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand{
+    font-size:28px;
+    font-weight:bold;
+}
+
+/* Hero Section */
+
+.hero{
+    background:
+    linear-gradient(rgba(0,119,204,0.8),rgba(0,198,255,0.7)),
+    url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070');
+
+    background-size:cover;
+    background-position:center;
+
+    color:white;
+    text-align:center;
+
+    padding:90px 20px;
+}
+
+.hero h1{
+    font-size:50px;
+    font-weight:bold;
+}
+
+/* Search Box */
+
+.search-box{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    margin-top:-40px;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
+}
+
+.form-control,
+.form-select{
+    height:50px;
+    border-radius:10px;
+}
+
+/* Search Button */
+
+.search-btn{
+    height:50px;
+    border:none;
+    border-radius:10px;
+    background:#0077cc;
+    color:white;
+    font-weight:bold;
+    width:100%;
+}
+
+.search-btn:hover{
+    background:#005fa3;
+}
+
+/* Categories */
+
+.category-card{
+    color:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.category-card:hover{
+    transform:translateY(-5px);
+}
+.small-btn{
+    width:220px;
+    height:50px;
+    border-radius:10px;
+    font-weight:bold;
+}
+.bg1{
+    background:linear-gradient(135deg,#ff9800,#ff5722);
+}
+
+.bg2{
+    background:linear-gradient(135deg,#0077cc,#00c6ff);
+}
+
+.bg3{
+    background:linear-gradient(135deg,#00b894,#00cec9);
+}
+
+.bg4{
+    background:linear-gradient(135deg,#8e44ad,#c0392b);
+}
+
+/* About & Contact */
+
+.info-box{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+
+.footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-expand-lg navbar-light p-3">
+
+<div class="container">
+
+<a class="navbar-brand text-primary" href="#">
+
+<i class="bi bi-tools"></i>
+
+LocalServiceFinder
+
+</a>
+
+<div>
+
+<a class="btn btn-outline-primary me-2" href="user_home2.html">
+Home
+</a>
+
+<a class="btn btn-outline-primary me-2" href="service2.html">
+Services
+</a>
+
+<a class="btn btn-outline-primary me-2" href="about2.html">
+About
+</a>
+
+<a class="btn btn-outline-primary me-2" href="contact2.html">
+Contact
+</a>
+
+<button class="btn btn-danger"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- Hero -->
+
+<section class="hero">
+
+<div class="container">
+
+<h1>
+Find Trusted Workers Near You
+</h1>
+
+<p>
+Electrician | Plumber | AC Repair | Painter
+</p>
+
+</div>
+
+</section>
+
+<!-- Search Section -->
+
+<!-- Search Section -->
+
+<div class="container">
+
+    <div class="search-box">
+
+        <!-- First Row -->
+
+        <div class="row g-3">
+
+            <!-- District -->
+
+            <div class="col-md-4">
+
+                <select class="form-select" id="district">
+
+                    <option value="">Select District</option>
+
+                    <option>Kanyakumari</option>
+                    <option>Chennai</option>
+                    <option>Madurai</option>
+                    <option>Coimbatore</option>
+                    <option>Salem</option>
+
+                </select>
+
+            </div>
+
+            <!-- Area -->
+
+            <div class="col-md-4">
+
+                <select class="form-select" id="area">
+
+                    <option value="">Select Area</option>
+
+                </select>
+
+            </div>
+
+            <!-- Service -->
+
+            <div class="col-md-4">
+
+                <select class="form-select" id="service">
+
+                    <option value="">Select Service</option>
+
+                    <option>Electrician</option>
+                    <option>Plumber</option>
+                    <option>AC Repair</option>
+                    <option>Painter</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- Second Row -->
+
+        <div class="d-flex justify-content-center gap-3 mt-3">
+
+        <button class="search-btn small-btn"
+                onclick="searchWorkers()">
+
+            <i class="bi bi-search"></i>
+            Search Workers
+
+         </button>
+
+    <button class="btn btn-success small-btn"
+    onclick="getLocation()">
+
+        <i class="bi bi-geo-alt-fill"></i>
+        Find Nearby Workers
+
+    </button>
+
+</div>
+
+    </div>
+
+</div>
+
+<!-- Categories -->
+
+<div class="container mt-5">
+
+<div class="container mt-4">
+    <div id="workerResult"></div>
+</div>
+<div class="container mt-4">
+
+    <div class="info-box">
+
+        <h3>My Bookings</h3>
+
+        <div id="bookingStatus"></div>
+
+    </div>
+
+</div>
+<h2 class="text-center mb-4">
+    Popular Categories
+</h2>
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="category-card bg1">
+
+<h4>
+⚡ Electrician
+</h4>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="category-card bg2">
+
+<h4>
+🔧 Plumber
+</h4>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="category-card bg3">
+
+<h4>
+❄ AC Repair
+</h4>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="category-card bg4">
+
+<h4>
+🎨 Painter
+</h4>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- About -->
+
+<div class="container mt-5">
+
+<div class="info-box">
+
+<h2 class="text-center mb-3">
+About Us
+</h2>
+
+<p class="text-center">
+
+Local Service Finder helps users connect with trusted local workers easily and quickly.
+
+Users can search nearby electricians, plumbers, AC repair workers and more.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Contact -->
+
+<div class="container mt-5">
+
+<div class="info-box">
+
+<h2 class="text-center mb-3">
+Contact Us
+</h2>
+
+<p class="text-center">
+📧 support@localservicefinder.com
+</p>
+
+<p class="text-center">
+📞 +91 9876543210
+</p>
+
+<p class="text-center">
+📍 Tamil Nadu, India
+</p>
+
+</div>
+
+</div>
+
+<!-- Footer -->
+
+<footer class="footer">
+
+<p>
+© 2026 Local Service Finder
+</p>
+
+</footer>
+
+<script>
+
+/* Search Validation */
+
+const areas = {
+
+    "Kanyakumari":[
+        "Nagercoil",
+        "Marthandam",
+        "Colachel"
+    ],
+
+    "Chennai":[
+        "Tambaram",
+        "Velachery",
+        "T Nagar"
+    ],
+
+    "Madurai":[
+        "Anna Nagar",
+        "KK Nagar",
+        "Melur"
+    ],
+
+    "Coimbatore":[
+        "Gandhipuram",
+        "Peelamedu",
+        "Saravanampatti"
+    ],
+
+    "Salem":[
+        "Attur",
+        "Omalur",
+        "Mettur"
+    ]
+};
+
+/* Load areas based on district */
+
+document.getElementById("district")
+.addEventListener("change", function(){
+
+    let district = this.value;
+
+    let areaSelect =
+    document.getElementById("area");
+
+    areaSelect.innerHTML =
+    '<option value="">Select Area</option>';
+
+    if(areas[district]){
+
+        areas[district].forEach(function(area){
+
+            areaSelect.innerHTML +=
+            `<option>${area}</option>`;
+
+        });
+
+    }
+
+});
+
+/* Search Workers */
+
+function searchWorkers(){
+
+    let district =
+    document.getElementById("district").value;
+
+    let area =
+    document.getElementById("area").value;
+
+    let service =
+    document.getElementById("service").value;
+
+    if(
+        district=="" ||
+        area=="" ||
+        service==""
+    ){
+        alert("Please select all fields");
+        return;
+    }
+
+    let workers =
+JSON.parse(
+    localStorage.getItem("workers")
+) || [];
+
+    let matchedWorkers = workers.filter(worker =>
+
+    worker.district === district &&
+    worker.area === area &&
+    worker.skill === service
+
+);
+
+if(matchedWorkers.length > 0){
+
+    let result = "";
+
+    matchedWorkers.forEach(function(worker){
+
+        result += `
+
+        <div class="card shadow p-4 mb-3">
+
+            <h3>${worker.name}</h3>
+
+            <p><b>Service:</b> ${worker.skill}</p>
+
+            <p><b>Phone:</b> ${worker.phone}</p>
+
+            <p><b>District:</b> ${worker.district}</p>
+
+            <p><b>Area:</b> ${worker.area}</p>
+
+            <p><b>Experience:</b> ${worker.experience}</p>
+
+            <p><b>Price:</b> ₹${worker.price}</p>
+
+            <button
+            class="btn btn-success"
+            onclick='selectWorker(${JSON.stringify(worker)})'>
+
+                Book Now
+
+            </button>
+
+        </div>
+
+        `;
+    });
+
+    document.getElementById("workerResult").innerHTML =
+    result;
+
+}
+else{
+
+    document.getElementById("workerResult").innerHTML =
+
+    `<div class="alert alert-danger">
+        No workers found
+    </div>`;
+}
+}
+function selectWorker(worker){
+
+    localStorage.setItem(
+        "selectedWorker",
+        JSON.stringify(worker)
+    );
+
+    window.location.href =
+    "book_service2.html";
+}
+
+
+/* Nearby Workers */
+
+function getLocation(){
+
+    if(navigator.geolocation){
+
+        navigator.geolocation.getCurrentPosition(
+
+            function(position){
+
+                alert(
+                    "Latitude : " +
+                    position.coords.latitude +
+                    "\nLongitude : " +
+                    position.coords.longitude
+                );
+
+            },
+
+            function(){
+
+                alert(
+                    "Please allow location access"
+                );
+
+            }
+
+        );
+
+    }
+    else{
+
+        alert(
+            "Geolocation not supported"
+        );
+
+    }
+
+}
+
+function logout(){
+
+let confirmLogout =
+confirm(
+"Are you sure want to logout?"
+);
+
+if(confirmLogout){
+
+window.location.href="index2.html";
+
+}
+
+}
+let currentUser =
+JSON.parse(
+localStorage.getItem("currentUser")
+);
+
+let bookings =
+JSON.parse(
+localStorage.getItem("bookings")
+) || [];
+
+let bookingHtml = "";
+
+bookings.forEach(function(booking){
+
+    if(
+        currentUser &&
+        booking.userName === currentUser.name
+    ){
+
+        bookingHtml += `
+
+        <div class="card p-3 mb-3">
+
+            <h5>${booking.workerName}</h5>
+
+            <p>
+            Date:
+            ${booking.date}
+            </p>
+
+            <p>
+            Status:
+            <b>${booking.status}</b>
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+});
+
+document.getElementById(
+"bookingStatus"
+).innerHTML = bookingHtml;
+</script>
+
+</body>
+</html>

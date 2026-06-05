@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Worker Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+}
+
+.navbar{
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.profile-card{
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+.profile-img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    margin-bottom:15px;
+}
+
+.request-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+.edit-btn{
+    background:#0077cc;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:10px;
+}
+
+.edit-btn:hover{
+    background:#005fa3;
+}
+
+.footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-expand-lg p-3">
+
+<div class="container">
+
+<a class="navbar-brand text-primary">
+
+<i class="bi bi-tools"></i>
+LocalServiceFinder
+
+</a>
+
+<button
+class="btn btn-danger"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+</nav>
+
+<!-- Main Section -->
+
+<div class="container mt-5">
+
+<div class="row">
+
+<!-- Profile -->
+
+<div class="col-lg-4">
+
+<div class="profile-card">
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+class="profile-img">
+
+<h3 id="workerName">Worker Name</h3>
+
+<p id="workerSkill">Skill</p>
+
+<hr>
+
+<p>
+<b>Phone:</b>
+<span id="workerPhone"></span>
+</p>
+
+<p>
+<b>District:</b>
+<span id="workerDistrict"></span>
+</p>
+
+<p>
+<b>Area:</b>
+<span id="workerArea"></span>
+</p>
+
+<p>
+<b>Experience:</b>
+<span id="workerExperience"></span>
+</p>
+
+<p>
+<b>Price:</b>
+₹<span id="workerPrice"></span>
+</p>
+
+<button
+class="edit-btn"
+onclick="editProfile()">
+
+Edit Profile
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Right Side -->
+
+<div class="col-lg-8">
+
+<div class="row mb-4">
+
+<div class="col-md-6">
+
+<div class="stat-card">
+
+<h5>Total Requests</h5>
+
+<h2 id="totalRequests">0</h2>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="stat-card">
+
+<h5>Completed Jobs</h5>
+
+<h2>10</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Request Card -->
+<div id="requestList"></div>
+
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Footer -->
+
+<div class="footer">
+
+© 2026 LocalServiceFinder
+
+</div>
+
+<script>
+
+let worker =
+JSON.parse(
+localStorage.getItem("workerData")
+);
+
+if(worker){
+
+document.getElementById(
+"workerName"
+).innerHTML = worker.name;
+
+document.getElementById(
+"workerSkill"
+).innerHTML = worker.skill;
+
+document.getElementById(
+"workerPhone"
+).innerHTML = worker.phone;
+
+document.getElementById(
+"workerDistrict"
+).innerHTML = worker.district;
+
+document.getElementById(
+"workerArea"
+).innerHTML = worker.area;
+
+document.getElementById(
+"workerExperience"
+).innerHTML = worker.experience;
+
+document.getElementById(
+"workerPrice"
+).innerHTML = worker.price;
+
+}
+
+let bookings =
+JSON.parse(
+localStorage.getItem("bookings")
+) || [];
+
+let requestHtml = "";
+
+let totalRequests = 0;
+
+bookings.forEach(function(booking,index){
+
+if(
+worker &&
+booking.workerName === worker.name
+){
+
+totalRequests++;
+
+requestHtml += `
+
+<div class="request-card">
+
+<h4>${booking.userName}</h4>
+
+<p><b>Date:</b> ${booking.date}</p>
+
+<p><b>Time:</b> ${booking.time}</p>
+
+<p><b>Address:</b> ${booking.address}</p>
+
+<p><b>Phone:</b> ${booking.phone}</p>
+<p><b>Status:</b> ${booking.status}</p>
+
+<button
+class="btn btn-success me-2"
+onclick="updateStatus(${index}, 'Accepted')">
+
+Accept
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="updateStatus(${index}, 'Rejected')">
+
+Reject
+
+</button>
+
+</div>
+
+`;
+
+}
+
+});
+
+document.getElementById(
+"requestList"
+).innerHTML = requestHtml;
+
+document.getElementById(
+"totalRequests"
+).innerHTML = totalRequests;
+
+function editProfile(){
+
+alert(
+"Edit Profile Page Coming Soon"
+);
+
+}
+function updateStatus(index,status){
+
+    bookings[index].status = status;
+
+    localStorage.setItem(
+        "bookings",
+        JSON.stringify(bookings)
+    );
+
+    alert(
+        "Request " + status
+    );
+
+    location.reload();
+
+}
+function logout(){
+
+if(
+confirm(
+"Are you sure you want to logout?"
+)
+){
+
+localStorage.removeItem(
+"workerData"
+);
+
+window.location.href =
+"index2.html";
+
+}
+
+}
+</script>
+
+</body>
+</html>
